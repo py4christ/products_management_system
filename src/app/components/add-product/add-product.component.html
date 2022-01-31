@@ -1,0 +1,47 @@
+
+<div style="padding: 100px;
+            background-color: gray;
+            margin-top: 20px;
+            ">
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert" >
+  <strong>Congratulation!</strong> Your product has been added sucessfully. Please close alert window to see all products.
+  <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close" style="float: right; border-radius: 5px; background-color: tomato;">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<a [routerLink]="['/']" matTooltip="Add new product to your product list" matTooltipPosition="after">
+        <button mat-raised-button style="background-color: slateblue;">Back to All Products</button>
+</a>
+
+<div style="background-color: darkolivegreen; margin-top: 20px; padding: 10px; border-radius: 5px;">
+
+  <h1 style="padding-top:10px;">New Product</h1>
+</div>
+<div style="margin-top: 20px;">
+  <form #form="ngForm">
+    <div class="form-group">
+      <label for="name"><b>Product Name</b></label>
+      <input ngModel #name="ngModel" type="text" class="form-control" id="name" name="name" placeholder="Enter product name" required minlength="2">
+    </div>
+    <div class="alert alert-danger" *ngIf="!name.valid && name.touched">
+      <div *ngIf="name?.errors?.['required']">Product name is required </div>
+      <div *ngIf="name?.errors?.['minlength']">Product name should be atleast 2 characters long </div>
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="price"><b>Product Price</b></label>
+      <input ngModel #price="ngModel" type="number" class="form-control" id="price" name="price" placeholder="000.00" required min="0" pattern="^[0-9]\d*(\.\d{1,2})?$">
+    </div>
+    <div class="alert alert-danger" *ngIf="!price.valid && price.touched">
+      <div *ngIf="price?.errors?.['required']">Price is required </div>
+      <div *ngIf="price?.errors?.['pattern']">Price should be digit with at most 2 dicimal place </div>
+    </div>
+    <br>
+    <button type="submit" mat-raised-button (click)="addProduct(form.value)" [disabled]="!form.valid" style="background-color: darkolivegreen;">Add Product</button>
+  </form>
+</div>
+</div>
+
+
+

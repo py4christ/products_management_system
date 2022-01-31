@@ -1,0 +1,61 @@
+
+  <div style="margin-top: 20px;">
+    <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+      Your product has been deleted sucessfully. Please close alert window to refresh your product page
+      <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close"
+        style="float: right; border-radius: 5px; background-color: tomato;">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <a [routerLink]="['/addProduct']" class="btn btn-info"
+        style="margin-bottom:10px; padding:10px 10px;"
+        matTooltip="Add new product to your product list" matTooltipPosition="after"
+        ><b>Add New Product</b></a>
+  <div class="navbar navbar-expand-lg navbar-dark bg-info justify-content-between">
+    <h1 style="padding-left:10px; padding-top:10px; font-size: 3em;"><b>Products</b></h1>
+
+  <div>
+      <div style="background-color: rgb(225, 225, 225); border-radius:5px; margin-right: 20px; margin-bottom: 5px;">
+        <span style="padding: 10px;">Filter by name</span>
+        <input [(ngModel)]="search" type="search" placeholder="Search" style="border-radius:5px; margin:5px;" />
+      </div>
+      <div style="background-color: rgb(225, 225, 225); border-radius:5px; margin-right: 20px;">
+        <span style="padding: 10px;">Filter by price</span>
+
+        <select [(ngModel)]="selectedAmount" id="amounts" name="amounts" style="border-radius:5px; margin:5px;">
+          <option *ngFor="let amount of amounts" [value]="amount.value" >{{ amount.range }}</option>
+        </select>
+      </div>
+  </div>
+
+  </div>
+  <div>
+    <table class="table table-striped table-responsive-md">
+      <thead style="background-color: darkcyan;">
+        <tr>
+          <th>PROUCT ID</th>
+          <th>PRODUCT NAME</th>
+          <th>PRODUCT PRICE</th>
+          <th colspan="2">ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products | filter : search : selectedAmount | paginate: { itemsPerPage: 5, currentPage: page }">
+          <td>{{ product.id | padding: numberOfPadding }}</td>
+          <td>{{ product.name | capitalize }}</td>
+          <td>{{ product.price | currency: 'CAD'}}</td>
+          <td><a [routerLink]="['/product', product.id]" class="btn btn-info"><b>Update</b></a></td>
+          <td><button class="btn btn-danger" (click)="openDialog(product.id)"><b>Delete</b></button></td>
+
+        </tr>
+      </tbody>
+    </table>
+</div>
+<br>
+<div style="background-color: rgb(225, 225, 225);">
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</div>
+
+</div>
+

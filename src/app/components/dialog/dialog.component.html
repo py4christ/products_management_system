@@ -1,0 +1,26 @@
+<div *ngIf="data.action==='Delete'">
+      <h1 mat-dialog-title> {{ data.action }} Confrimation</h1>
+      <mat-dialog-content>
+        {{ data.body}}
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close mat-dialog-close="delete" style="background-color: darkcyan;">Confirm</button>
+        <button mat-raised-button mat-dialog-close mat-dialog-close="" style="background-color: red;">Cancel</button>
+      </mat-dialog-actions>
+</div>
+      <div *ngIf="data.action==='Update'">
+        <h1 mat-dialog-title> {{ data.action }} Confrimation</h1>
+        <mat-dialog-content>
+          {{ data.body }} with <br> <br>
+          new name as <span style="color: red; font-weight: bold;">{{ data.updatedProduct.name }} </span><br>
+          and new price as <span style="color: red; font-weight: bold;"> {{ data.updatedProduct.price | currency: 'CAD' }} </span> <br><br>
+
+        </mat-dialog-content>
+        <mat-dialog-actions>
+          <button mat-raised-button mat-dialog-close mat-dialog-close="delete" style="background-color: darkcyan;">Confirm</button>
+          <button mat-raised-button mat-dialog-close mat-dialog-close="" style="background-color: red;">Cancel</button>
+      </mat-dialog-actions>
+</div>
+
+
+
